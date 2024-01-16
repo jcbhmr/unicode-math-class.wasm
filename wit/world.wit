@@ -1,6 +1,8 @@
 package typst-community:unicode-math-class;
 
+/// Hello world! 1
 interface unicode-math-class {
+    /// Hello world! 2
     enum math-class {
         normal,
         alphabetic,
@@ -19,11 +21,14 @@ interface unicode-math-class {
         special,
     }
 
+    /// Hello world! 3
     revision: func() -> u8;
 
+    /// Hello world! 4
     class: func(c: string) -> option<math-class>;
 }
 
+/// Hello world! 5
 world unicode-math-class-world {
     export unicode-math-class;
 }

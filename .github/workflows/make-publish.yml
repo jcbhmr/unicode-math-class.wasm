@@ -1,6 +1,9 @@
-name:  make publish
+name: make publish
 on:
   workflow_dispatch:
+    inputs:
+      draft:
+        type: boolean
 jobs:
   make-publish:
     permissions:
@@ -16,6 +19,7 @@ jobs:
           version=$(cargo metadata --format-version=1 --no-deps | jq -r '.packages[0].version')
           echo "version=$version" >> "$GITHUB_OUTPUT"
       - run: make bulid RELEASE=1
-      - run: make publish
+      - run: make publish GHFLAGS="$GHFLAGS"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_FLAGS: ${{ inputs.draft && '--draft' || '' }}
