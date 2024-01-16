@@ -1,0 +1,21 @@
+name:  make publish
+on:
+  workflow_dispatch:
+jobs:
+  make-publish:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: rustup target add wasm32-unknown-unknown
+      - uses: cargo-bins/cargo-binstall@main
+      - run: cargo binstall cargo-component -y
+      - id: get-version
+        run: |
+          version=$(cargo metadata --format-version=1 --no-deps | jq -r '.packages[0].version')
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+      - run: make bulid RELEASE=1
+      - run: make publish
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

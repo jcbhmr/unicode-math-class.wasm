@@ -14,7 +14,6 @@ setup:
 	command -v deno || curl -fsSL https://deno.land/install.sh | sh
 	command -v bun || curl -fsSL https://bun.sh/install | bash
 	command -v wasm-tools || cargo binstall wasm-tools -y
-	command -v wasmtime || curl https://wasmtime.dev/install.sh -sSf | bash
 
 test-js:
 	(cd tests/js; npm install; npm run build; npm test)
@@ -25,4 +24,9 @@ test-rs:
 test: test-js test-rs
 
 publish:
-	
+	version=$$(cargo pkgid | cut -d'#' -f2 | cut -d'@' -f2 | cut -d'+' -f1); \
+	echo -n | gh release create \
+		"v$$version" \
+		--generate-notes \
+		$(GHFLAGS) \
+		target/wasm32-unknown-unknown/release/$(CARGO_CRATE_NAME).wasm
