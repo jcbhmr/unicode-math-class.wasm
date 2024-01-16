@@ -1,0 +1,29 @@
+package typst-community:unicode-math-class;
+
+interface unicode-math-class {
+    enum math-class {
+        normal,
+        alphabetic,
+        binary,
+        closing,
+        diacritic,
+        fence,
+        glyph-part,
+        large,
+        opening,
+        punctuation,
+        relation,
+        space,
+        unary,
+        vary,
+        special,
+    }
+
+    revision: func() -> u8;
+
+    class: func(c: string) -> option<math-class>;
+}
+
+world unicode-math-class-world {
+    export unicode-math-class;
+}

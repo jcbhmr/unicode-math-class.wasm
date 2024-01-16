@@ -1,0 +1,19 @@
+[package]
+name = "unicode-math-class-wasm"
+version = "0.1.0"
+edition = "2021"
+
+[workspace]
+members = ["tests/rs"]
+
+[dependencies]
+cargo-component-bindings = "0.6.0"
+unicode-math-class = "0.1.0"
+
+[lib]
+crate-type = ["cdylib"]
+
+[package.metadata.component]
+package = "typst-community:unicode-math-class"
+
+[package.metadata.component.dependencies]

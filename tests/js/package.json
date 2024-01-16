@@ -1,0 +1,11 @@
+{
+  "type": "module",
+  "scripts": {
+    "build": "make build",
+    "postbuild": "npm install",
+    "test": "node --test"
+  },
+  "workspaces": [
+    "out"
+  ]
+}

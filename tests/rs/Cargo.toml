@@ -1,0 +1,7 @@
+[package]
+name = "tests-rs"
+version = "0.0.0"
+edition = "2021"
+
+[dev-dependencies]
+wasmtime = { version = "16.0.0", features = ["component-model"] }
