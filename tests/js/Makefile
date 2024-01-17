@@ -1,8 +1,8 @@
-CARGO_CRATE_NAME := unicode_math_class_wasm
+WORLD := unicode-math-class
 
 build:
 	jco transpile \
-		../../target/wasm32-unknown-unknown/$(if $(RELEASE),release,debug)/$(CARGO_CRATE_NAME).wasm \
+		../../target/wasm32-unknown-unknown/$(if $(RELEASE),release,debug)/$(WORLD).wasm \
 		-o out \
 		--instantiation async \
 		$(if $(RELEASE),--minify --optimize,--tracing) \

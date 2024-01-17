@@ -1,4 +1,4 @@
-use crate::bindings::exports::typst_community::unicode_math_class::unicode_math_class as wit;
+use crate::bindings::exports::typst_community::unicode_math_class::crate_ as wit;
 use unicode_math_class as rs;
 
 impl From<rs::MathClass> for wit::MathClass {

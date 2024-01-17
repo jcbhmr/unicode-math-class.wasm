@@ -1,5 +1,5 @@
 import { readFile } from "node:fs/promises";
-import { instantiate } from "./out/unicode_math_class_wasm.js";
+import { instantiate } from "./out/unicode-math-class.js";
 
 export const test = await import("node:test")
   .then((m) => m.default)
@@ -17,8 +17,8 @@ async function getCoreModule(filename) {
 }
 
 /**
- * @param {import('./out/unicode_math_class_wasm.js').Imports} importObject
- * @returns {Promise<import('./out/unicode_math_class_wasm.js').Root>}
+ * @param {import('./out/unicode-math-class.js').Imports} importObject
+ * @returns {Promise<import('./out/unicode-math-class.js').Root>}
  */
 export const instantiate2 = async (importObject) =>
   await instantiate(getCoreModule, importObject);

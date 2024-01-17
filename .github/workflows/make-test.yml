@@ -1,0 +1,45 @@
+name: make test
+on:
+  push:
+    branches: "main"
+    paths-ignore:
+      - .gitignore
+      - README.md
+      - LICENSE
+      - .vscode/**
+      - .github/**
+      - "!.github/workflows/make-test.yml"
+  pull_request:
+    paths-ignore:
+      - .gitignore
+      - README.md
+      - LICENSE
+      - .vscode/**
+      - .github/**
+      - "!.github/workflows/make-test.yml"
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  make-test:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: rustup target add wasm32-unknown-unknown
+      - uses: cargo-bins/cargo-binstall@main
+      - run: cargo binstall cargo-component -y
+      - run: |
+          cargo binstall --git https://github.com/bytecodealliance/wit-bindgen wit-bindgen-cli -y
+      - uses: actions/setup-node@v4
+        with:
+          node-version: latest
+      - uses: denoland/setup-deno@v1
+      - uses: oven-sh/setup-bun@v1
+      - run: make build
+      - run: make test
+      - uses: actions/upload-artifact@v4
+        with:
+          name: artifact
+          path: target/wasm32-unknown-unknown/debug/*.wasm

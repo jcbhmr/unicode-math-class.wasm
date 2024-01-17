@@ -1,8 +1,8 @@
 package typst-community:unicode-math-class;
 
-/// Hello world! 1
-interface unicode-math-class {
-    /// Hello world! 2
+/// ROOT [Crate unicode_math_class](https://docs.rs/unicode-math-class/0.1.0/unicode_math_class/)
+interface crate {
+    // [Enum unicode_math_class::MathClass](https://docs.rs/unicode-math-class/0.1.0/unicode_math_class/enum.MathClass.html)
     enum math-class {
         normal,
         alphabetic,
@@ -21,14 +21,14 @@ interface unicode-math-class {
         special,
     }
 
-    /// Hello world! 3
+    /// [Constant unicode_math_class::REVISION](https://docs.rs/unicode-math-class/0.1.0/unicode_math_class/constant.REVISION.html)
     revision: func() -> u8;
 
-    /// Hello world! 4
+    /// [Function unicode_math_class::class](https://docs.rs/unicode-math-class/0.1.0/unicode_math_class/fn.class.html)
     class: func(c: string) -> option<math-class>;
 }
 
-/// Hello world! 5
-world unicode-math-class-world {
-    export unicode-math-class;
+/// [Crate unicode_math_class](https://docs.rs/unicode-math-class/0.1.0/unicode_math_class/)
+world unicode-math-class {
+    export crate;
 }

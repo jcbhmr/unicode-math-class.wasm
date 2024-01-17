@@ -11,6 +11,7 @@ cargo-component-bindings = "0.6.0"
 unicode-math-class = "=0.1.0"
 
 [lib]
+name = "unicode_math_class"
 crate-type = ["cdylib"]
 
 [package.metadata.component]
