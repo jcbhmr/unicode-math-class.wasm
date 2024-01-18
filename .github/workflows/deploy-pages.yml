@@ -10,6 +10,7 @@ on:
       - tests/**
       - .github/**
       - "!.github/workflows/deploy-pages.yml"
+  workflow_dispatch:
 concurrency: ${{ github.workflow }}
 jobs:
   deploy-pages:
