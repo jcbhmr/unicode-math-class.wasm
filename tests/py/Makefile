@@ -1,15 +1,15 @@
-PYTHON := python3.12
+PYTHON := python3
 WORLD := unicode-math-class
 
 .PHONY: build
 build:
-	. .venv/bin/activate; \
+	set -e; . .venv/bin/activate; \
 	python -m wasmtime.bindgen \
 		../../target/wasm32-unknown-unknown/$(if $(RELEASE),release,debug)/$(WORLD).wasm \
 		--out-dir build
 
 fetch:
-	. .venv/bin/activate; \
+	set -e; . .venv/bin/activate; \
 	python -m pip install -r requirements.txt
 
 venv:
@@ -22,5 +22,5 @@ shell:
 	exec bash -c 'exec bash --rcfile <(echo ". ~/.bashrc; . .venv/bin/activate")'
 
 test:
-	. .venv/bin/activate; \
+	set -e; . .venv/bin/activate; \
 	python -m unittest

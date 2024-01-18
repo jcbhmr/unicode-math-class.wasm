@@ -14,32 +14,27 @@ setup:
 	rustup target add wasm32-unknown-unknown
 	command -v cargo-binstall || curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
 	command -v cargo-component || cargo binstall cargo-component -y
-	if ! command -v node; then \
-		if [ "$$OS" = "Windows_NT" ]; then \
-			curl -sS https://webi.sh/node | sh; \
-		else \
-			curl.exe https://webi.ms/node | powershell; \
-		fi \
-	fi
+	command -v node || { echo 'Please install Node.js manually'; exit 1; }
 	command -v jco || npm install -g @bytecodealliance/jco
 	command -v deno || curl -fsSL https://deno.land/install.sh | sh
 	command -v bun || curl -fsSL https://bun.sh/install | bash
+	command -v python3 || { echo 'Please install Python manually'; exit 1; }
 	command -v wit-bindgen || cargo binstall --git https://github.com/bytecodealliance/wit-bindgen wit-bindgen-cli -y
 	command -v static-web-server || cargo binstall static-web-server -y
 	command -v wasm-tools || cargo binstall wasm-tools -y
 
 test-js:
-	cd tests/js; \
+	set -e; cd tests/js; \
 	[ -d node_modules ] || npm install; \
 	npm run build; \
 	npm test
 
 test-rs:
 	# https://github.com/bytecodealliance/wasmtime/issues/7784
-	# cargo test -p tests-rs
+	cargo test -p tests-rs || true
 
 test-py:
-	cd tests/py; \
+	set -e; cd tests/py; \
 	[ -d .venv ] || $(MAKE) venv; \
 	$(MAKE) fetch; \
 	$(MAKE) build; \
@@ -48,7 +43,7 @@ test-py:
 test: test-js test-rs test-py
 
 publish:
-	version=$$(cargo pkgid | cut -d'#' -f2 | cut -d'@' -f2); \
+	set -e; version=$$(cargo pkgid | cut -d'#' -f2 | cut -d'@' -f2); \
 	echo -n | gh release create \
 		"v$$version" \
 		--generate-notes \
