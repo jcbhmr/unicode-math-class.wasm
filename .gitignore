@@ -1,4 +1,4 @@
-# wit-bindgen markdown
+# make build-docs
 _site/
 
 # https://github.com/github/gitignore/blob/main/Rust.gitignore

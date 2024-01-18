@@ -20,6 +20,8 @@ on:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+env:
+  COMPONENT_WORLD: unicode-math-class
 jobs:
   make-test:
     permissions:
@@ -45,4 +47,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: artifact
-          path: target/wasm32-unknown-unknown/debug/*.wasm
+          path: |
+            target/wasm32-unknown-unknown/debug/${{ env.COMPONENT_WORLD }}.wasm
