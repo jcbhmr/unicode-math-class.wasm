@@ -4,11 +4,11 @@
 
 <table align=center><td>
 
-```js
-assert.equal(class('0'), "normal"));
-assert.equal(class('a'), "alphabetic");
-assert.equal(class('('), "opening");
-assert.equal(class('😃'), null);
+```c
+class('0') //=> "normal"
+class('a') //=> "alphabetic"
+class('(') //=> "opening"
+class('😃') //=> null
 ```
 
 </table>
