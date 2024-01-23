@@ -23,7 +23,7 @@ setup:
 
 publish:
 	target_directory=$$(cargo metadata --format-version=1 | jq -r .'target_directory') \
-		echo -n | gh release create \
+		&& echo -n | gh release create \
 			"v$$(cargo pkgid | cut -d'#' -f2 | cut -d'@' -f2)" \
 			--generate-notes \
 			$(GHFLAGS) \

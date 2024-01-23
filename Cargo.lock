@@ -72,7 +72,7 @@ checksum = "7d246cf599d5fae3c8d56e04b20eb519adb89a8af8d0b0fbcded369aa3647d65"
 
 [[package]]
 name = "unicode-math-class-wasm"
-version = "1.0.0+0.1.0"
+version = "2.0.0+0.1.0"
 dependencies = [
  "cargo-component-bindings",
  "unicode-math-class",

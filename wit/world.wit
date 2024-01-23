@@ -1,4 +1,4 @@
-package typst-community:unicode-math-class@1.0.0;
+package typst-community:unicode-math-class@2.0.0;
 
 interface types {
     /// <https://docs.rs/unicode-math-class/0.1.0/unicode_math_class/enum.MathClass.html>
