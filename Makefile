@@ -8,9 +8,10 @@ build:
 		--target $(TARGET) \
 		$(if $(RELEASE),--release) \
 		$(CARGOFLAGS)
-	ln -f \
-		"$$PWD/target/$(TARGET)/$(if $(RELEASE),release,debug)/$(CARGO_CRATE_NAME).wasm" \
-		"$$PWD/target/$(TARGET)/$(if $(RELEASE),release,debug)/$(COMPONENT_WORLD).wasm"
+	target_directory=$$(cargo metadata --format-version=1 | jq -r .'target_directory') \
+		&& ln -f \
+			"$$target_directory/$(TARGET)/$(if $(RELEASE),release,debug)/$(CARGO_CRATE_NAME).wasm" \
+			"$$target_directory/$(TARGET)/$(if $(RELEASE),release,debug)/$(COMPONENT_WORLD).wasm"
 
 setup:
 	rustup target add $(TARGET)
@@ -21,11 +22,12 @@ setup:
 	command -v wasm-tools || cargo binstall wasm-tools -y
 
 publish:
-	echo -n | gh release create \
-		"v$$(cargo pkgid | cut -d'#' -f2 | cut -d'@' -f2)" \
-		--generate-notes \
-		$(GHFLAGS) \
-		target/$(TARGET)/release/$(COMPONENT_WORLD).wasm
+	target_directory=$$(cargo metadata --format-version=1 | jq -r .'target_directory') \
+		echo -n | gh release create \
+			"v$$(cargo pkgid | cut -d'#' -f2 | cut -d'@' -f2)" \
+			--generate-notes \
+			$(GHFLAGS) \
+			"$$target_directory/$(TARGET)/release/$(COMPONENT_WORLD).wasm"
 
 build-docs:
 	# TODO: Make a standalone WIT docgen tool
@@ -33,7 +35,7 @@ build-docs:
 	find _site -type f -name '*.md' -delete
 	find _site -type f -name '*.html' -exec sed -i.bak '1i<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">' {} \;
 	find _site -type f -name '*.bak' -delete
-	find _site -type f -name '*.html' -exec sh -c 'echo "<p><a href=\"$(CARGO_PKG_REPOSITORY)\">Source on GitHub</a></p>" >> {}' \;
+	find _site -type f -name '*.html' -exec sh -c 'echo "<hr><p><a href=\"$(CARGO_PKG_REPOSITORY)\">Source on GitHub</a></p>" >> {}' \;
 	echo '<meta http-equiv="refresh" content="0;url=$(COMPONENT_WORLD).html">' > _site/index.html
 	echo '<script>location.replace("$(COMPONENT_WORLD).html");</script>' >> _site/index.html
 

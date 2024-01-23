@@ -1,22 +1,21 @@
-#[macro_use]
-mod macros;
+mod my_macros;
 
 cargo_component_bindings::generate!();
-use bindings as wit;
-use unicode_math_class as rs;
+use my_macros::rs_wit_parallel_enum;
+use unicode_math_class;
 
 pub struct Component;
-impl wit::Guest for Component {
+impl bindings::Guest for Component {
     fn revision() -> u8 {
-        rs::REVISION
+        unicode_math_class::REVISION
     }
-    fn class(c: String) -> Option<wit::MathClass> {
-        let c = c.chars().next().unwrap();
-        rs::class(c).map(|x| x.into())
+    fn class(c: String) -> Option<bindings::MathClass> {
+        let c = c.chars().next().expect("non-empty string");
+        unicode_math_class::class(c).map(|x| x.into())
     }
 }
 
-my_parallel_enum!(rs::MathClass, wit::MathClass, {
+rs_wit_parallel_enum!(unicode_math_class::MathClass, bindings::MathClass, {
     Normal,
     Alphabetic,
     Binary,
