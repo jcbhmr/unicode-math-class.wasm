@@ -1,4 +1,4 @@
-name: make test
+name: make build
 on:
   push:
     branches: "main"
@@ -8,7 +8,7 @@ on:
       - LICENSE
       - .vscode/**
       - .github/**
-      - "!.github/workflows/make-test.yml"
+      - "!.github/workflows/make-build.yml"
   pull_request:
     paths-ignore:
       - .gitignore
@@ -16,14 +16,14 @@ on:
       - LICENSE
       - .vscode/**
       - .github/**
-      - "!.github/workflows/make-test.yml"
+      - "!.github/workflows/make-build.yml"
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 env:
   COMPONENT_WORLD: unicode-math-class
 jobs:
-  make-test:
+  make-build:
     permissions:
       contents: write
     runs-on: ubuntu-latest
@@ -32,18 +32,11 @@ jobs:
       - run: rustup target add wasm32-unknown-unknown
       - uses: cargo-bins/cargo-binstall@main
       - run: cargo binstall cargo-component -y
-      - run: |
-          cargo binstall --git https://github.com/bytecodealliance/wit-bindgen wit-bindgen-cli -y
-      - uses: actions/setup-node@v4
-        with:
-          node-version: latest
-      - uses: denoland/setup-deno@v1
-      - uses: oven-sh/setup-bun@v1
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
       - run: make build
-      - run: make test
+      - run: |
+          wasm-tools component wit \
+            target/wasm32-unknown-unknown/debug/${{ env.COMPONENT_WORLD }}.wasm \
+            >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         with:
           name: artifact
