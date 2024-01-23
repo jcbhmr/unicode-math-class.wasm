@@ -1,8 +1,7 @@
-package typst-community:unicode-math-class;
+package typst-community:unicode-math-class@1.0.0;
 
-/// ROOT [Crate unicode_math_class](https://docs.rs/unicode-math-class/0.1.0/unicode_math_class/)
-interface crate {
-    // [Enum unicode_math_class::MathClass](https://docs.rs/unicode-math-class/0.1.0/unicode_math_class/enum.MathClass.html)
+interface types {
+    /// <https://docs.rs/unicode-math-class/0.1.0/unicode_math_class/enum.MathClass.html>
     enum math-class {
         normal,
         alphabetic,
@@ -20,15 +19,16 @@ interface crate {
         vary,
         special,
     }
-
-    /// [Constant unicode_math_class::REVISION](https://docs.rs/unicode-math-class/0.1.0/unicode_math_class/constant.REVISION.html)
-    revision: func() -> u8;
-
-    /// [Function unicode_math_class::class](https://docs.rs/unicode-math-class/0.1.0/unicode_math_class/fn.class.html)
-    class: func(c: string) -> option<math-class>;
 }
 
-/// [Crate unicode_math_class](https://docs.rs/unicode-math-class/0.1.0/unicode_math_class/)
+/// <https://docs.rs/unicode-math-class/0.1.0/unicode_math_class/>
 world unicode-math-class {
-    export crate;
+    export types;
+    use types.{math-class};
+
+    /// <https://docs.rs/unicode-math-class/0.1.0/unicode_math_class/constant.REVISION.html>
+    export revision: func() -> u8;
+
+    /// <https://docs.rs/unicode-math-class/0.1.0/unicode_math_class/fn.class.html>
+    export class: func(c: string) -> option<math-class>;
 }

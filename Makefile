@@ -1,4 +1,4 @@
-CARGO_CRATE_NAME := unicode_math_class_wasm
+CARGO_CRATE_NAME := unicode_math_class
 COMPONENT_WORLD := unicode-math-class
 CARGO_PKG_REPOSITORY := https://github.com/jcbhmr/unicode-math-class.wasm
 TARGET := wasm32-unknown-unknown
@@ -8,7 +8,7 @@ build:
 		--target $(TARGET) \
 		$(if $(RELEASE),--release) \
 		$(CARGOFLAGS)
-	ln \
+	ln -f \
 		"$$PWD/target/$(TARGET)/$(if $(RELEASE),release,debug)/$(CARGO_CRATE_NAME).wasm" \
 		"$$PWD/target/$(TARGET)/$(if $(RELEASE),release,debug)/$(COMPONENT_WORLD).wasm"
 
@@ -31,8 +31,9 @@ build-docs:
 	# TODO: Make a standalone WIT docgen tool
 	wit-bindgen markdown wit --out-dir _site
 	find _site -type f -name '*.md' -delete
-	find _site -type f -name '*.html' -exec sed -i.bak '1i<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"><p><a href="$(CARGO_PKG_REPOSITORY)">View on GitHub</a></p>' {} \;
+	find _site -type f -name '*.html' -exec sed -i.bak '1i<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">' {} \;
 	find _site -type f -name '*.bak' -delete
+	find _site -type f -name '*.html' -exec sh -c 'echo "<p><a href=\"$(CARGO_PKG_REPOSITORY)\">Source on GitHub</a></p>" >> {}' \;
 	echo '<meta http-equiv="refresh" content="0;url=$(COMPONENT_WORLD).html">' > _site/index.html
 	echo '<script>location.replace("$(COMPONENT_WORLD).html");</script>' >> _site/index.html
 
