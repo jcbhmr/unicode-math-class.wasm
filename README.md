@@ -18,12 +18,12 @@ assert.equal(class('😃'), null);
   | <a href="https://github.com/jcbhmr/unicode-math-class.wasm/releases/latest/download/unicode-math-class.wasm">Download</a>
 </p>
 
-🏷️ Uses [unicode-math-class](https://crates.io/crates/unicode-math-class) v0.1.0 \
+🏷️ Uses unicode-math-class v0.1.0 \
 🟪 Distributed as WebAssembly to run anywhere \
 🤝 Composes well with other WebAssembly components \
 0️⃣ Zero dependencies
 
-👀 You might be looking for the premade bindings [for JavaScript](#TODO) or [for Python](#TODO).
+👀 You might be looking for the premade [bindings for JavaScript](#TODO) or [bindings for Python](#TODO).
 
 ## Usage
 
