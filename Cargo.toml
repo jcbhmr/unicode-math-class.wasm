@@ -1,11 +1,13 @@
 [package]
 name = "unicode-math-class-wasm"
-version = "2.0.0+0.1.0"
+version = "3.0.0+0.1.0"
 edition = "2021"
 publish = false
 
 [dependencies]
-cargo-component-bindings = "0.6.0"
+wit-bindgen = { version = "0.16.0", default-features = false, features = [
+  "realloc",
+] }
 unicode-math-class = "=0.1.0"
 
 [lib]

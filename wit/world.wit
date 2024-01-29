@@ -1,4 +1,4 @@
-package typst-community:unicode-math-class@2.0.0+0.1.0;
+package typst-community:unicode-math-class@3.0.0+0.1.0;
 
 interface types {
     /// <https://docs.rs/unicode-math-class/0.1.0/unicode_math_class/enum.MathClass.html>
@@ -19,16 +19,17 @@ interface types {
         vary,
         special,
     }
+
+    /// <https://docs.rs/unicode-math-class/0.1.0/unicode_math_class/constant.REVISION.html>
+    revision: func() -> u8;
+
+    /// <https://docs.rs/unicode-math-class/0.1.0/unicode_math_class/fn.class.html>
+    class: func(c: string) -> option<math-class>;
 }
 
 /// <https://docs.rs/unicode-math-class/0.1.0/unicode_math_class/>
 world unicode-math-class {
     export types;
-    use types.{math-class};
 
-    /// <https://docs.rs/unicode-math-class/0.1.0/unicode_math_class/constant.REVISION.html>
-    export revision: func() -> u8;
-
-    /// <https://docs.rs/unicode-math-class/0.1.0/unicode_math_class/fn.class.html>
-    export class: func(c: string) -> option<math-class>;
+    // https://github.com/bytecodealliance/wit-bindgen/issues/822
 }
