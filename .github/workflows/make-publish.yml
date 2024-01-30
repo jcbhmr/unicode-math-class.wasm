@@ -12,8 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: rustup target add wasm32-unknown-unknown
-      - uses: cargo-bins/cargo-binstall@main
-      - run: cargo binstall cargo-component -y
+      - uses: jcbhmr/setup-cargo-component@v1
       - run: make build RELEASE=1
       - run: make publish GHFLAGS="$GHFLAGS"
         env:

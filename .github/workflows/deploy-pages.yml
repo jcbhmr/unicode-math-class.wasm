@@ -25,10 +25,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: rustup target add wasm32-unknown-unknown
-      - uses: cargo-bins/cargo-binstall@main
-      - run: cargo binstall cargo-component -y
-      - run: |
-          cargo binstall --git https://github.com/bytecodealliance/wit-bindgen wit-bindgen-cli -y
+      - uses: jcbhmr/setup-cargo-component@v1
+      - uses: jcbhmr/setup-wit-bindgen@v1
       - id: configure-pages
         uses: actions/configure-pages@v4
       - run: make build

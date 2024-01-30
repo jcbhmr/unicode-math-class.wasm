@@ -30,15 +30,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: rustup target add wasm32-unknown-unknown
-      - uses: cargo-bins/cargo-binstall@main
-      - run: cargo binstall cargo-component -y
-      - run: cargo binstall wasm-tools -y
+      - uses: jcbhmr/setup-cargo-component@v1
+      - uses: jcbhmr/setup-wasm-tools@v1
       - run: make build
       - run: |
           wasm-tools component wit \
-            target/wasm32-unknown-unknown/debug/${{ env.COMPONENT_WORLD }}.wasm \
-            | sed 's/^/    /' \
-            >> "$GITHUB_STEP_SUMMARY"
+            "target/wasm32-unknown-unknown/debug/$COMPONENT_WORLD.wasm" \
+            | sed 's/^/    /' >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         with:
           name: artifact
