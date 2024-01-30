@@ -1,7 +1,7 @@
 mod bindings;
 mod my_macros;
 
-use my_macros::rs_wit_parallel_enum;
+use my_macros::my_parallel_enum;
 use unicode_math_class;
 
 pub struct Component;
@@ -17,7 +17,7 @@ impl bindings::exports::typst_community::unicode_math_class::types::Guest for Co
     }
 }
 
-rs_wit_parallel_enum!(unicode_math_class::MathClass, bindings::exports::typst_community::unicode_math_class::types::MathClass, {
+my_parallel_enum!(unicode_math_class::MathClass, bindings::exports::typst_community::unicode_math_class::types::MathClass, {
     Normal,
     Alphabetic,
     Binary,

@@ -1,4 +1,4 @@
-macro_rules! rs_wit_parallel_enum {
+macro_rules! my_parallel_enum {
     ($rs:path, $wit:path, {
         $($variant:ident,)*
     }) => {
@@ -18,4 +18,4 @@ macro_rules! rs_wit_parallel_enum {
         }
     };
   }
-pub(crate) use rs_wit_parallel_enum;
+pub(crate) use my_parallel_enum;
