@@ -31,7 +31,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: rustup target add wasm32-unknown-unknown
       - uses: jcbhmr/setup-cargo-component@v1
-      - uses: jcbhmr/setup-wasm-tools@v1
+      - uses: jcbhmr/setup-wasm-tools@v2
       - run: make build
       - run: |
           wasm-tools component wit \
